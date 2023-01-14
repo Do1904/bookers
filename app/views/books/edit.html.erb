@@ -1,7 +1,11 @@
 <h1>Books#edit</h1>
 
 <% if @editing_book.errors.any? %>
-  <%= @editing_book.errors.count %>件のエラーが発生しました
+   <% if @editing_book.errors.count == 1 %>
+   <%= @editing_book.errors.count %> error has occured.
+ <% elsif @editing_book.errors.count > 1 %>
+   <%= @editing_book.errors.count %> errors have occured.
+ <% end %>
   <ul>
     <% @editing_book.errors.full_messages.each do |message| %>
       <li><%= message %></li>
@@ -17,8 +21,10 @@
   <h4>本文</h4>
   <%= f.text_area :body %>
   
-  <%= f.submit '保存' %>
+  <%= f.submit 'Update Book' %>
   
 <% end %>
 
-<%= link_to "Back", "/books/" %>
+<%= link_to "Show", book_path(@editing_book.id) %>
+<%= link_to "Back", books_path %>
+
